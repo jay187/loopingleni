@@ -23,6 +23,21 @@ void setup();
 void scrollDisplays();
 void readInputs();
 void sendData();
-void startMultiScrolling();
+void setMultiDisplayText(String text);
+void tick();
+void disableButtons();
+void enableButtons();
+void setNormalSpeed();
+void setTurboSpeed();
+void updatePlayerStatus();
+void updateTurboStatus();
+void stopMotor();
+void startGame();
+void startRound();
+void randomSpeed();
+void randomDirection();
+void startMotor();
+void checkChips();
+void looserFound(int p);
 //Do not add code below this line
 #endif /* LoopingLeni_H_ */

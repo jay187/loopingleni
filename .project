@@ -8,7 +8,6 @@
 	<buildSpec>
 		<buildCommand>
 			<name>org.eclipse.cdt.managedbuilder.core.genmakebuilder</name>
-			<triggers>clean,full,incremental,</triggers>
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -28,6 +27,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>Looper</name>
+			<type>2</type>
+			<locationURI>PivateLibPath/Looper</locationURI>
+		</link>
+		<link>
 			<name>LoopingLouie</name>
 			<type>2</type>
 			<locationURI>PivateLibPath/LoopingLouie</locationURI>
@@ -38,9 +42,14 @@
 			<locationURI>PivateLibPath/MatrixDriver</locationURI>
 		</link>
 		<link>
-			<name>TimerOne</name>
+			<name>QueueArray</name>
 			<type>2</type>
-			<locationURI>PivateLibPath/TimerOne</locationURI>
+			<locationURI>PivateLibPath/QueueArray</locationURI>
+		</link>
+		<link>
+			<name>SimpleTimer</name>
+			<type>2</type>
+			<locationURI>PivateLibPath/SimpleTimer</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
