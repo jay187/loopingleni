@@ -8,6 +8,7 @@
 	<buildSpec>
 		<buildCommand>
 			<name>org.eclipse.cdt.managedbuilder.core.genmakebuilder</name>
+			<triggers>clean,full,incremental,</triggers>
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -25,31 +26,4 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 		<nature>it.baeyens.arduinonature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>Looper</name>
-			<type>2</type>
-			<locationURI>PivateLibPath/Looper</locationURI>
-		</link>
-		<link>
-			<name>LoopingLouie</name>
-			<type>2</type>
-			<locationURI>PivateLibPath/LoopingLouie</locationURI>
-		</link>
-		<link>
-			<name>MatrixDriver</name>
-			<type>2</type>
-			<locationURI>PivateLibPath/MatrixDriver</locationURI>
-		</link>
-		<link>
-			<name>QueueArray</name>
-			<type>2</type>
-			<locationURI>PivateLibPath/QueueArray</locationURI>
-		</link>
-		<link>
-			<name>SimpleTimer</name>
-			<type>2</type>
-			<locationURI>PivateLibPath/SimpleTimer</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

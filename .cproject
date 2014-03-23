@@ -24,7 +24,7 @@
 							<option id="it.baeyens.avreclipse.toolchain.options.toolchain.size.app.release.1878891254" name="Print Size" superClass="it.baeyens.avreclipse.toolchain.options.toolchain.size.app.release"/>
 							<option id="it.baeyens.avreclipse.toolchain.options.toolchain.avrdude.app.release.1381992110" name="AVRDude" superClass="it.baeyens.avreclipse.toolchain.options.toolchain.avrdude.app.release"/>
 							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF" id="it.baeyens.avreclipse.targetplatform.winavr.app.release.231503348" name="AVR Cross-Target" superClass="it.baeyens.avreclipse.targetplatform.winavr.app.release"/>
-							<builder buildPath="${workspace_loc:/${ProjName}/Release}" enableAutoBuild="true" errorParsers="org.eclipse.cdt.core.MakeErrorParser" id="it.baeyens.avreclipse.target.builder.winavr.app.release.2080468417" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="AVR GNU Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="it.baeyens.avreclipse.target.builder.winavr.app.release"/>
+							<builder buildPath="${workspace_loc:/${ProjName}/Release}" errorParsers="org.eclipse.cdt.core.MakeErrorParser" id="it.baeyens.avreclipse.target.builder.winavr.app.release.2080468417" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="AVR GNU Make Builder" superClass="it.baeyens.avreclipse.target.builder.winavr.app.release"/>
 							<tool command="avr-gcc" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GASErrorParser" id="it.baeyens.avreclipse.tool.assembler.winavr.app.release.2056035817" name="AVR Assembler" superClass="it.baeyens.avreclipse.tool.assembler.winavr.app.release">
 								<option id="it.baeyens.avreclipse.assembler.option.debug.level.22469911" name="Generate Debugging Info" superClass="it.baeyens.avreclipse.assembler.option.debug.level" value="it.baeyens.avreclipse.assembler.option.debug.level.none" valueType="enumerated"/>
 								<option id="it.baeyens.avreclipse.asm.option.include.paths.1193182990" name="#include paths for preprocessor(-I)" superClass="it.baeyens.avreclipse.asm.option.include.paths"/>
@@ -37,15 +37,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ARDUINOBOARDNAME}/${ARDUINO_CORE_FOLDER}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ARDUINOBOARDNAME}/${ARDUINOBOARDVARIANT}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/LoopingLouie}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/MatrixDriver}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/TimerOne}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/SimpleTimer}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/Timer}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/leOS2}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/Looper}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/leOS}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/QueueArray}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/SimpleTimer}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/LoopingLouie}&quot;"/>
 								</option>
 								<option id="it.baeyens.avreclipse.compiler.option.def.1485111403" name="Define Syms (-D)" superClass="it.baeyens.avreclipse.compiler.option.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__IN_ECLIPSE__=1"/>
@@ -70,13 +65,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/LoopingLouie}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/MatrixDriver}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/TimerOne}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/SimpleTimer}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/Timer}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/leOS2}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/Looper}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/leOS}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/QueueArray}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LoopingLeni/SimpleTimer}&quot;"/>
 								</option>
 								<option id="it.baeyens.avreclipse.cppcompiler.option.def.479432623" name="Define Syms (-D)" superClass="it.baeyens.avreclipse.cppcompiler.option.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__IN_ECLIPSE__=1"/>
@@ -115,12 +105,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="QueueArray|leOS|Looper|leOS2|Timer|SimpleTimer|TimerOne|MatrixDriver|LoopingLouie" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
-						<entry excluding="?xamples/*" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Looper"/>
-						<entry excluding="?xamples/*" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="LoopingLouie"/>
-						<entry excluding="?xamples/*" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="MatrixDriver"/>
-						<entry excluding="?xamples/*" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="QueueArray"/>
-						<entry excluding="?xamples/*" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="SimpleTimer"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -142,12 +127,8 @@
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="LoopingLeni.null.1538982528" name="LoopingLeni"/>
+		<project id="LoopingLeni.null.1615313929" name="LoopingLeni"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
-	<storageModule moduleId="refreshScope" versionNumber="2">
-		<configuration configurationName="Release">
-			<resource resourceType="PROJECT" workspacePath="/LoopingLeni"/>
-		</configuration>
-	</storageModule>
+	<storageModule moduleId="refreshScope"/>
 </cproject>

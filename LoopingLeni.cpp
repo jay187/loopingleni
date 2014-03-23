@@ -15,10 +15,10 @@
 //#include "looper.h"
 #include "SimpleTimer.h"
 
-#define DISPLAY_COUNT 4
+#define DISPLAY_COUNT 7
 #define DISPLAY_COLUMNS 8
-#define DIRECTION_RANDOM 80
-#define RANDOM_STOP 70
+#define DIRECTION_RANDOM 90
+#define RANDOM_STOP 95
 
 #define GAME_BOOT 0
 #define GAME_ACTIVE 1
@@ -35,8 +35,8 @@ unsigned int SPEED_PIN = 11;
 unsigned int DIRECTION_PIN_1 = 12;
 unsigned int DIRECTION_PIN_2 = 13;
 
-int NORMAL_SPEED = 200;
-int TURBO_SPEED = 255;
+int NORMAL_SPEED = 50;
+int TURBO_SPEED = 80;
 
 int motor_speed = 0;
 int motor_direction = 1;
@@ -87,7 +87,7 @@ void setup() {
 
   pinMode(INPUT_PIN, INPUT);
 
-  char text[] = " <<LOOPING LENI>> Let's get ready to drink!   ";
+  char text[] = " <<LOOPING LENI>>";
 
   for (int i = 0; i < DISPLAY_COUNT; i++) {
     displays[i].setPosition(i);
@@ -98,9 +98,9 @@ void setup() {
   digitalWrite(DIRECTION_PIN_2, LOW);
 
 
-  scheduler.setInterval(30, scrollDisplays);
+  scheduler.setInterval(35, scrollDisplays);
   scheduler.setInterval(250, updateTurboStatus);
-  scheduler.setTimeout(21000, startGame);
+  scheduler.setTimeout(2000, startGame);
 
   //MOTOR SCHEDULE
   random_speed_timer = scheduler.setInterval(2000, randomSpeed);
@@ -117,6 +117,8 @@ void updateTurboStatus() {
   game.updateTurboStates();
   for (int i = 0; i < DISPLAY_COUNT; i++) {
     displays[i].setTurbo(game.getTurbo(i));
+    //displays[i].setStaticText()
+//    displays[i].setPlayerStatus(motor_speed, game.getTurbo(i));
   }
 }
 
@@ -141,8 +143,8 @@ void scrollDisplays() {
 
 void loop() {
 //  scheduler.scheduler();
-  scheduler.run();
   sendData();
+  scheduler.run();
   if (timer_count == 5) {
     readInputs();
     timer_count = 0;
@@ -151,7 +153,7 @@ void loop() {
 }
 
 void randomSpeed(){
-  motor_speed = random(120, 220);
+  motor_speed = random(20, NORMAL_SPEED);
   startMotor();
 }
 

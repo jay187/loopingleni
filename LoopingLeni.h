@@ -6,7 +6,7 @@
 
 #ifndef LoopingLeni_H_
 #define LoopingLeni_H_
-#include "Arduino.h"
+//#include "Arduino.h"
 //add your includes for the project LoopingLeni here
 
 //end of add your includes here
@@ -23,7 +23,7 @@ void setup();
 void scrollDisplays();
 void readInputs();
 void sendData();
-void setMultiDisplayText(String text);
+void setMultiDisplayText(char text, int size);
 void tick();
 void disableButtons();
 void enableButtons();

@@ -11,7 +11,6 @@ RM := rm -rf
 -include SimpleTimer/subdir.mk
 -include MatrixDriver/subdir.mk
 -include LoopingLouie/subdir.mk
--include Looper/subdir.mk
 -include subdir.mk
 -include objects.mk
 

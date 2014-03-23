@@ -1,5 +1,5 @@
 LoopingLouie/LoopingLouie.d LoopingLouie/LoopingLouie.o:  \
- /Users/jensheidrich/Documents/Arduino/LoopingLouie/LoopingLouie.cpp \
+ ../LoopingLouie/LoopingLouie.cpp \
   /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/Arduino.h \
   /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/binary.h \
   /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/WCharacter.h \
@@ -10,8 +10,7 @@ LoopingLouie/LoopingLouie.d LoopingLouie/LoopingLouie.o:  \
   /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/Printable.h \
   /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/new.h \
   /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/variants/standard/pins_arduino.h \
-  /Users/jensheidrich/Documents/Arduino/LoopingLouie/LoopingLouieStruct.h \
-  /Users/jensheidrich/Documents/Arduino/LoopingLouie/LoopingLouie.h
+  ../LoopingLouie/LoopingLouieStruct.h ../LoopingLouie/LoopingLouie.h
 
 /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/Arduino.h:
 
@@ -33,6 +32,6 @@ LoopingLouie/LoopingLouie.d LoopingLouie/LoopingLouie.o:  \
 
 /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/variants/standard/pins_arduino.h:
 
-/Users/jensheidrich/Documents/Arduino/LoopingLouie/LoopingLouieStruct.h:
+../LoopingLouie/LoopingLouieStruct.h:
 
-/Users/jensheidrich/Documents/Arduino/LoopingLouie/LoopingLouie.h:
+../LoopingLouie/LoopingLouie.h:

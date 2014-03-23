@@ -19,5 +19,4 @@ avrtarget/avrdude/ProgrammerID=programmerconfig.2
 avrtarget/avrdude/UseCounter=false
 avrtarget/avrdude/WriteEEPROM=false
 avrtarget/avrdude/WriteFlash=true
-avrtarget/perConfig=false
 eclipse.preferences.version=1
