@@ -1,5 +1,5 @@
 //
-// Version 20130720.1600
+// Version 20140327.2145
 //
 
 #include "LoopingLeni.h"
@@ -16,7 +16,7 @@
 
 #define DISPLAY_COUNT 8
 #define DISPLAY_COLUMNS 8
-#define DIRECTION_RANDOM 90
+#define DIRECTION_RANDOM 80
 #define RANDOM_STOP 95
 
 #define GAME_BOOT 0
@@ -24,6 +24,9 @@
 #define GAME_CHECK_PLAYERS 2
 #define GAME_STOPPED 3
 #define GAME_IDLE 4
+
+#define MOTOR_FORWARD 2
+#define MOTOR_BACKWARD 1
 
 // SET PINS
 const uint8_t CLOCK_PIN = 10;
@@ -35,13 +38,13 @@ const uint8_t SPEED_PIN = 11;
 const uint8_t DIRECTION_PIN_1 = 12;
 const uint8_t DIRECTION_PIN_2 = 13;
 
-const uint8_t MIN_SPEED = 50;
-const uint8_t NORMAL_SPEED = 100;
-const uint8_t TURBO_SPEED = 250;
+const uint8_t MIN_SPEED = 20;
+const uint8_t NORMAL_SPEED = 50;
+const uint8_t TURBO_SPEED = 90;
 
-const unsigned int TURBO_DURATION = 1500;
+const unsigned int TURBO_DURATION = 1000;
 const unsigned int CHIP_LOST_DELAY = 750;
-const unsigned int START_ROUND_DELAY = 2500;
+const unsigned int START_ROUND_DELAY = 3250;
 
 const uint8_t CHIP_ACTIVE = 1;
 const uint8_t CHIP_PENDING = 2;
@@ -55,7 +58,7 @@ char TURBO_TEXT[] = " !TURBO! ";
 char START_ROUND_TEXT[] = " BLAUER BUTTON ";
 
 uint8_t motor_speed = 0;
-uint8_t motor_direction = 1;
+uint8_t motor_direction = MOTOR_FORWARD;
 
 uint8_t game_state = GAME_BOOT;
 
@@ -63,6 +66,8 @@ uint8_t random_speed_timer;
 uint8_t scroll_double_timer = 0;
 uint8_t turbo_speed_timer = 0;
 uint8_t random_direction_timer = 0;
+uint8_t motor_random = 0;
+boolean one_player_active = false;
 
 volatile boolean BUTTONS_ENABLED = false;
 volatile boolean TURBO_ACTIVE = false;
@@ -106,9 +111,10 @@ void setup() {
   digitalWrite(DIRECTION_PIN_2, LOW);
 
 
-  scheduler.setInterval(30, scrollDisplays);
+  scheduler.setInterval(35, scrollDisplays);
   scheduler.setInterval(300, updateTurboStatus);
-  scheduler.setTimeout(8000, startGame);
+  scheduler.setTimeout(9750, startGame);
+  //scheduler.setInterval(300, updatePlayerStatus);
 
   random_speed_timer = scheduler.setInterval(2000, randomSpeed);
   random_direction_timer = scheduler.setInterval(3000, randomDirection);
@@ -116,6 +122,7 @@ void setup() {
 
 void startGame(){
   enableButtons();
+  updatePlayerStatus();
 //  setInfiniteMultiDisplayText(START_ROUND_TEXT, sizeof(START_ROUND_TEXT));
   game_state = GAME_IDLE;
 }
@@ -131,6 +138,7 @@ void updatePlayerStatus() {
   for (int i = 0; i < DISPLAY_COUNT; i++) {
     displays[i].enablePlayerStatus();
     displays[i].setPlayerStatus(game.getLost(i), game.getTurbo(i));
+    //displays[i].setPlayerStatus(motor_direction, game.getTurbo(i));
   }
 }
 
@@ -170,27 +178,28 @@ void scheduleRandomDirectionSpeed(){
 }
 
 void randomDirection(){
-  if (motor_direction == 1 && random(0, 100) > DIRECTION_RANDOM){
-    motor_direction = -1;
-    scheduler.setTimeout(random(1000, 2500), randomDirection);
-  }
-  else if (motor_direction == 1 && random(0, 100) > RANDOM_STOP){
-    motor_direction = 1;
+  motor_random = random(0,100);
+  if (motor_direction == MOTOR_FORWARD && motor_random > RANDOM_STOP){
+    motor_direction = MOTOR_FORWARD;
     motor_speed = 0;
   }
+  else if (motor_direction == MOTOR_FORWARD && motor_random > DIRECTION_RANDOM){
+    motor_direction = MOTOR_BACKWARD;
+    scheduler.setTimeout(random(1000, 2500), randomDirection);
+  }
   else{
-    motor_direction = 1;
+    motor_direction = MOTOR_FORWARD;
   }
   startMotor();
 }
 
 void startMotor(){
   if (game_state == GAME_ACTIVE){
-    if (motor_direction == 1){
+    if (motor_direction == MOTOR_FORWARD){
       digitalWrite(DIRECTION_PIN_1, HIGH);
       digitalWrite(DIRECTION_PIN_2, LOW);
     }
-    else if(motor_direction == -1){
+    else if(motor_direction == MOTOR_BACKWARD){
       digitalWrite(DIRECTION_PIN_1, LOW);
       digitalWrite(DIRECTION_PIN_2, HIGH);
     }
@@ -253,16 +262,18 @@ void enableExtraScrollTimer(){
 }
 
 void disableExtraScrollTimer(){
-  if(scroll_double_timer > 0){
+ // if(scroll_double_timer > 0){
     //scheduler.stop(scroll_double_timer );
-  }
+ // }
 }
 
 void checkChips() {
   int p = chip_pending.pop();
   player_status[p] = CHIP_LOST;
-  displays[p].setPlayerStatus(game.getLost(p), game.getTurbo(p));
-  updatePlayerStatus();
+  //displays[p].setPlayerStatus(game.getLost(p), game.getTurbo(p));
+  if (game_state == GAME_ACTIVE){
+    updatePlayerStatus();
+  }
 }
 
 void startRound(){
@@ -276,16 +287,18 @@ void startRound(){
 void looserFound(int p) {
   game_state = GAME_STOPPED;
   disableButtons();
-  player_status[p] = CHIP_ACTIVE;
   stopMotor();
   game.raiseLost(p);
   game.resetPlayers();
-  updatePlayerStatus();
-  char text[10] = "LOOSER #";
-  text[8] = (char) p + 49;
-  text[9] = ' ';
-  setMultiDisplayText(text, sizeof(text));
-  scheduler.setTimeout(5000, startGame);
+  //updatePlayerStatus();
+  char text[11] = " LOOSER #";
+  text[9] = (char) p + 49;
+  text[10] = ' ';
+  //setMultiDisplayText(text, sizeof(text));
+  setInfiniteMultiDisplayText(text, sizeof(text));
+  scheduler.setTimeout(8500, startGame);
+  one_player_active = false;
+  player_status[p] = CHIP_ACTIVE;
 }
 
 
@@ -305,7 +318,7 @@ void readInputs() {
       digitalWrite(CLOCK_PIN, HIGH);
       digitalWrite(CLOCK_PIN, LOW);
     }
-    if (BUTTONS_ENABLED && game_state == GAME_IDLE && (~player_input & B00000100)) {
+    if (BUTTONS_ENABLED && one_player_active && game_state == GAME_IDLE && (~player_input & B00000100)) {
       //BLUE BUTTON
       game_state = GAME_CHECK_PLAYERS;
       setMultiDisplayText(GO_TEXT, sizeof(GO_TEXT));
@@ -315,7 +328,7 @@ void readInputs() {
     }
     else if (BUTTONS_ENABLED && game_state == GAME_ACTIVE && player_status[p] == CHIP_ACTIVE && (~player_input & B00000010)) {
       //TURBO
-      if (game.useTurbo(p)) {
+      if (motor_direction == MOTOR_FORWARD && game.useTurbo(p)) {
         TURBO_ACTIVE = true;
         disableButtons();
         setTurboSpeed();
@@ -335,7 +348,7 @@ void readInputs() {
           scheduler.setTimeout(CHIP_LOST_DELAY, checkChips);
           return;
         }
-        else if (player_status[p] == CHIP_LOST) {
+        else if (game_state == GAME_ACTIVE && player_status[p] == CHIP_LOST) {
           looserFound(p);
           return;
         }
@@ -346,6 +359,10 @@ void readInputs() {
     }
     else if (game_state == GAME_CHECK_PLAYERS && (~player_input & B00000001)){
       player_status[p] = CHIP_ACTIVE;
+    }
+    else if (game_state == GAME_IDLE && (~player_input & B00000001)){
+      player_status[p] = CHIP_ACTIVE;
+      one_player_active = true;
     }
     else if (game_state == GAME_CHECK_PLAYERS && (player_input & B00000001)){
       player_status[p] = CHIP_INACTIVE;
