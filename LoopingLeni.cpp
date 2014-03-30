@@ -1,5 +1,5 @@
 //
-// Version 20140327.2145
+// Version 20140330.1525
 //
 
 #include "LoopingLeni.h"
@@ -38,7 +38,7 @@ const uint8_t SPEED_PIN = 11;
 const uint8_t DIRECTION_PIN_1 = 12;
 const uint8_t DIRECTION_PIN_2 = 13;
 
-const uint8_t MIN_SPEED = 20;
+const uint8_t MIN_SPEED = 30;
 const uint8_t NORMAL_SPEED = 50;
 const uint8_t TURBO_SPEED = 90;
 
@@ -178,12 +178,13 @@ void scheduleRandomDirectionSpeed(){
 }
 
 void randomDirection(){
-  motor_random = random(0,100);
-  if (motor_direction == MOTOR_FORWARD && motor_random > RANDOM_STOP){
+  //motor_random = random(0,100);
+  if (motor_direction == MOTOR_FORWARD && random(0,100) > RANDOM_STOP){
     motor_direction = MOTOR_FORWARD;
     motor_speed = 0;
+    scheduler.setTimeout(random(1000, 2500), randomDirection);
   }
-  else if (motor_direction == MOTOR_FORWARD && motor_random > DIRECTION_RANDOM){
+  else if (motor_direction == MOTOR_FORWARD && random(0,100) > DIRECTION_RANDOM){
     motor_direction = MOTOR_BACKWARD;
     scheduler.setTimeout(random(1000, 2500), randomDirection);
   }
