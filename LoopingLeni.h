@@ -22,8 +22,9 @@ void setup();
 //add your function definitions for the project Test here
 void scrollDisplays();
 void readInputs();
+void processInputs();
 void sendData();
-void setMultiDisplayText(char text, int size);
+void setMultiDisplayText(const char text, int size);
 void tick();
 void disableButtons();
 void enableButtons();
@@ -39,5 +40,8 @@ void randomDirection();
 void startMotor();
 void checkChips();
 void looserFound(int p);
+void scheduleRandomDirectionSpeed();
+void enableExtraScrollTimer();
+void disableExtraScrollTimer();
 //Do not add code below this line
 #endif /* LoopingLeni_H_ */

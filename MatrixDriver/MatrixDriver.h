@@ -30,22 +30,22 @@ private:
 	byte display[8];
 	char current_char;
 	char next_char;
-	int single_column;
-	int multi_column;
-	int full_column;
-	int single_text_length;
-	int multi_text_length;
-	int single_loop_count;
-	int loops;
-	int position;
-	int mode;
-	int next_mode;
-	int single_char_pos;
-	int multi_char_pos;
-	int step_count;
+	uint8_t single_column;
+	uint8_t multi_column;
+	uint8_t full_column;
+	uint8_t single_text_length;
+	uint8_t multi_text_length;
+	uint8_t single_loop_count;
+	uint8_t loops;
+	uint8_t position;
+	uint8_t mode;
+	uint8_t next_mode;
+	uint8_t single_char_pos;
+	uint8_t multi_char_pos;
+	uint8_t step_count;
 	boolean scroll_enabled;
-	int score;
-	int turbo;
+	uint8_t score;
+	uint8_t turbo;
 };
 
 #endif
