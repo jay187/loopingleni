@@ -19,6 +19,7 @@ public:
 	void stopScrolling();
 	void enableMultiScrolling();
 	void enableSingleScrolling();
+	void enablePlayerStatus();
 	void showPosition();
 	void clearDisplay();
 	void setIcon(int icon);

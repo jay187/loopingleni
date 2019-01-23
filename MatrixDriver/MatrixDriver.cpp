@@ -202,6 +202,11 @@ void MatrixDriver::enableMultiScrolling() {
   this->scroll_enabled = true;
 }
 
+void MatrixDriver::enablePlayerStatus() {
+  this->mode = 3;
+  this->scroll_enabled = true;
+}
+
 void MatrixDriver::scroll() {
   if (this->mode != 2){
     this->single_column++;
