@@ -35,17 +35,17 @@ const uint8_t SPEED_PIN = 11;
 const uint8_t DIRECTION_PIN_1 = 12;
 const uint8_t DIRECTION_PIN_2 = 13;
 
-const uint8_t MIN_SPEED = 120;
-const uint8_t NORMAL_SPEED = 160;
-const uint8_t TURBO_SPEED = 255;
+const uint8_t MIN_SPEED = 50;
+const uint8_t MAX_SPEED = 140;
+const uint8_t TURBO_SPEED = 220;
 
 const unsigned int SCROLL_SPEED_FAST = 20;
 const unsigned int SCROLL_SPEED = 35;
 const unsigned int UPDATE_TURBO_STATUS_INTERVAL = 150;
 const unsigned int TURBO_DURATION = 1000;
 const unsigned int CHIP_LOST_DELAY = 750;
-const unsigned int START_ROUND_DELAY = 1650;  // 3250;
-const unsigned int STARTUP_ANIMATION_DURATION = 9750;
+const unsigned int START_ROUND_DELAY = 2500;           // 3250;
+const unsigned int STARTUP_ANIMATION_DURATION = 5250;  // 9750;
 const unsigned int LOOSER_ANIMATION_DURATION = 5500;
 const unsigned int RANDOM_SPEED_TIMER = 2000;
 const unsigned int RANDOM_DIRECTION_TIMER = 3000;
@@ -56,10 +56,10 @@ const uint8_t CHIP_PENDING = 2;
 const uint8_t CHIP_LOST = 3;
 const uint8_t CHIP_INACTIVE = 4;
 
-char BOOT_TEXT[] = " <<LOOPING LENI>>";
-char GO_TEXT[] = " GO! GO! GO! ";
+char BOOT_TEXT[] = " <<LOOPING LENI>>  THEO ";
+char GO_TEXT[] = " GO! GO! GOOOOOOO! ";
 char TURBO_TEXT[] = " !TURBO! ";
-char START_ROUND_TEXT[] = " BLAUER BUTTON ";
+// char START_ROUND_TEXT[] = " BLAUER BUTTON ";
 
 uint8_t motor_speed = 0;
 uint8_t motor_direction = MOTOR_FORWARD;
@@ -175,7 +175,7 @@ void loop() {
 }
 
 void randomSpeed() {
-  motor_speed = random(MIN_SPEED, NORMAL_SPEED);
+  motor_speed = random(MIN_SPEED, MAX_SPEED);
   startMotor();
 }
 
@@ -248,7 +248,7 @@ void enableButtons() {
 void setNormalSpeed() {
   TURBO_ACTIVE = false;
   disableExtraScrollTimer();
-  motor_speed = NORMAL_SPEED;
+  motor_speed = MAX_SPEED;
   scheduleRandomDirectionSpeed();
   startMotor();
 }
@@ -281,7 +281,16 @@ void checkChips() {
   }
 }
 
+void resetLostChips() {
+  while (!chip_pending.isEmpty()) {
+    chip_pending.pop();
+  }
+}
+
+void resetPlayers() { player_status[DISPLAY_COUNT] = {CHIP_INACTIVE}; }
+
 void startRound() {
+  resetLostChips();
   game_state = GAME_ACTIVE;
   TURBO_ACTIVE = false;
   disableExtraScrollTimer();
@@ -326,6 +335,7 @@ void readInputs() {
         (~player_input & B00000100)) {
       // BLUE BUTTON
       game_state = GAME_CHECK_PLAYERS;
+      resetPlayers();
       setMultiDisplayText(GO_TEXT, sizeof(GO_TEXT));
       scheduler.setTimeout(START_ROUND_DELAY, startRound);
       enableExtraScrollTimer();
